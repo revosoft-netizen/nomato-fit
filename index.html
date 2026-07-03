@@ -234,9 +234,9 @@ const DEFAULT_ROUTINE = {
   1: JSON.parse(JSON.stringify(TEMPLATES.nolegs)),
   2: JSON.parse(JSON.stringify(TEMPLATES.soccer)),
   3: JSON.parse(JSON.stringify(TEMPLATES.r1)),
-  4: JSON.parse(JSON.stringify(TEMPLATES.rest)),
-  5: JSON.parse(JSON.stringify(TEMPLATES.r2)),
-  6: JSON.parse(JSON.stringify(TEMPLATES.rest)),
+  4: JSON.parse(JSON.stringify(TEMPLATES.r1)),
+  5: JSON.parse(JSON.stringify(TEMPLATES.r1)),
+  6: JSON.parse(JSON.stringify(TEMPLATES.nolegs)),
   0: JSON.parse(JSON.stringify(TEMPLATES.soccer)),
 };
 
@@ -452,12 +452,12 @@ const DEFAULT_STATE = {
   nutrition:[],
   programStart: todayStr(),
   deloadWeeks:7,
-  routineVersion:4,
+  routineVersion:5,
   created: todayStr()
 };
 
 let S = load();
-if((S.routineVersion||1)<4){ S.routine=JSON.parse(JSON.stringify(DEFAULT_ROUTINE)); S.routineVersion=4; S._ts=Date.now(); S._rev=Date.now().toString(36); try{localStorage.setItem(LS_KEY, JSON.stringify(S));}catch(e){} }
+if((S.routineVersion||1)<5){ S.routine=JSON.parse(JSON.stringify(DEFAULT_ROUTINE)); S.routineVersion=5; S._ts=Date.now(); S._rev=Date.now().toString(36); try{localStorage.setItem(LS_KEY, JSON.stringify(S));}catch(e){} }
 function load(){
   try{ const r = JSON.parse(localStorage.getItem(LS_KEY)); if(r&&r.profile){ return Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), r);} }catch(e){}
   return JSON.parse(JSON.stringify(DEFAULT_STATE));
@@ -625,7 +625,7 @@ function setDayRoutine(dayIdx, key){ S.routine[dayIdx]=JSON.parse(JSON.stringify
 function wkDone(w){ if(!w) return false; if(w.done) return true; return (w.exercises||[]).some(ex=>(ex.sets||[]).some(s=>(s.w!=null&&s.w!=='')||(s.r!=null&&s.r!==''))); }
 const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3']];
 function applyPlan(key){ if(!TEMPLATES[key]) return;
-  const wk={1:'nolegs',2:'soccer',3:key,4:'rest',5:key,6:'rest',0:'soccer'};
+  const wk={1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
   Object.keys(wk).forEach(d=>{ S.routine[d]=JSON.parse(JSON.stringify(TEMPLATES[wk[d]])); });
   save(); flash('Rutina de la semana aplicada 🔄'); setView('entrenar');
 }
