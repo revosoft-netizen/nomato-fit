@@ -260,6 +260,8 @@ const EXDB={
   'Fondos / Press cerrado':{key:'dips',m:['Tríceps','Pecho inferior'],tip:['Inclínate ligeramente para el pecho; vertical para tríceps.','Baja hasta que el codo forme 90°.','No encojas los hombros hacia las orejas.']},
   'Extensión tríceps polea':{key:'pushdown',m:['Tríceps'],tip:['Codos pegados al cuerpo y fijos.','Extiende completo y aprieta abajo 1 segundo.','Sube controlando, sin que el codo se abra.']},
   'Dominadas / Jalón al pecho':{key:'pullup',m:['Dorsal','Bíceps'],tip:['Inicia bajando los omóplatos antes de tirar.','Lleva el pecho hacia la barra, no la barbilla.','Baja con control hasta extender los brazos.']},
+  'Jalón al pecho (agarre neutro)':{m:['Dorsal','Bíceps'],tip:['Agarre neutro (paralelo), manos al ancho de hombros.','Llevá el mango al pecho bajando los codos hacia atrás.','Estirá arriba sintiendo el dorsal, sin soltar la tensión.']},
+  'Jalón al pecho (agarre cerrado)':{m:['Dorsal','Bíceps'],tip:['Agarre cerrado en V, pecho alto.','Tirá del mango al esternón apretando el dorsal.','Controlá la subida hasta extender los brazos.']},
   'Remo con barra':{key:'rowBar',m:['Espalda media','Dorsal','Bíceps'],tip:['Bisagra de cadera, espalda recta a ~45°.','Tira la barra hacia el ombligo / abdomen bajo.','Aprieta las escápulas arriba 1 segundo.']},
   'Remo en polea baja':{key:'rowCable',m:['Espalda media','Dorsal'],tip:['Pecho alto y torso estable, sin balancearte.','Tira llevando los codos atrás, pegados al cuerpo.','Estira completo al final de cada repetición.']},
   'Face pull':{key:'rowCable',m:['Deltoides post.','Trapecio'],tip:['Polea a la altura de la cara.','Tira separando las manos hacia las orejas.','Rota externamente: pulgares hacia atrás al final.']},
@@ -302,6 +304,8 @@ const EXVID={
   'Fondos / Press cerrado':'yN6Q1UI_xkE',
   'Extensión tríceps polea':'qHDrQglWgS4',
   'Dominadas / Jalón al pecho':'aNUSgyWRJYA',
+  'Jalón al pecho (agarre neutro)':'aNUSgyWRJYA',
+  'Jalón al pecho (agarre cerrado)':'aNUSgyWRJYA',
   'Remo con barra':'rqTOAM8WoeM',
   'Remo en polea baja':'EU7bOadUsNI',
   'Face pull':'eTCBSFlCJ_s',
@@ -338,6 +342,8 @@ const EXIMG={
   'Fondos / Press cerrado':'Dips_-_Chest_Version',
   'Extensión tríceps polea':'Triceps_Pushdown',
   'Dominadas / Jalón al pecho':'Pullups',
+  'Jalón al pecho (agarre neutro)':'V-Bar_Pulldown',
+  'Jalón al pecho (agarre cerrado)':'Close-Grip_Front_Lat_Pulldown',
   'Remo con barra':'Bent_Over_Barbell_Row',
   'Remo en polea baja':'Seated_Cable_Rows',
   'Face pull':'Face_Pull',
@@ -358,7 +364,7 @@ const SUGGEST={
   'Pájaros en máquina':25,'Curl en polea':20,'Extensión de tríceps sobre la cabeza':25,
   'Sentadilla':60,'Press banca con barra':45,'Remo con barra':40,'Press militar':27.5,
   'Elevaciones laterales':5,'Curl con barra':20,'Plancha (core)':null,
-  'Peso muerto rumano':30,'Dominadas / Jalón al pecho':40,'Press inclinado mancuerna':15,
+  'Peso muerto rumano':30,'Dominadas / Jalón al pecho':40,'Jalón al pecho (agarre neutro)':40,'Jalón al pecho (agarre cerrado)':40,'Press inclinado mancuerna':15,
   'Face pull':20,'Extensión tríceps polea':20,'Curl martillo':10,'Gemelos de pie':50,
   'Prensa':120,'Curl femoral':25,'Fondos / Press cerrado':null,'Remo en polea baja':40,
   'Press banca mancuerna':17.5,'Remo mancuerna':17.5,'Zancadas':10,'Hip thrust':50,
@@ -374,6 +380,8 @@ const PAT={
   'Elevaciones laterales':'side_delt','Elevaciones laterales en polea':'side_delt',
   'Extensión tríceps polea':'triceps','Fondos / Press cerrado':'triceps',
   'Dominadas / Jalón al pecho':'pull_v',
+  'Jalón al pecho (agarre neutro)':'pull_v',
+  'Jalón al pecho (agarre cerrado)':'pull_v',
   'Remo con barra':'pull_h','Remo en polea baja':'pull_h','Remo mancuerna':'pull_h',
   'Face pull':'rear_delt',
   'Curl con barra':'biceps','Curl martillo':'biceps',
@@ -638,7 +646,7 @@ function trainDayCard(i){
   const chev='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>';
   const check='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 13 10 18 19 6"/></svg>';
   const start = r.type==='rest' ? '' : `<button class="daygo" title="Registrar" onclick="startWorkout(${i})" style="background:${doneToday?'var(--green)':col}">${doneToday?check:chev}</button>`;
-  const edit = r.type==='gym' ? `<button class="swapbtn" title="Editar ejercicios" style="margin-right:8px" onclick="openDayEditor(${i})">✎</button>` : '';
+  const edit = '';  // edición por-día quitada; se cambia cada ejercicio dentro de la rutina con ⇄
   return `<div class="daycard ${i===di?'today':''} ${doneToday?'done':''}">
     <div class="dd" style="background:${col};color:var(--cream)">${ic}</div>
     <div class="dn"><b>${DAY_NAMES[i]}</b><span>${r.type==='gym'?r.name:r.type==='soccer'?'Fútbol':'Descanso / movilidad'}</span></div>
