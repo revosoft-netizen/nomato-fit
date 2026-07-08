@@ -160,6 +160,11 @@ hr.div{border:none;border-top:1px solid var(--line);margin:16px 0}
 .syncpill.wait{color:var(--warn);border-color:#e3cfa0}
 .swapbtn{background:var(--panel);border:1px solid var(--line);color:var(--muted);width:36px;height:36px;border-radius:8px;font-size:16px;cursor:pointer;flex-shrink:0}
 .swapbtn:hover{background:var(--paper);color:var(--green);border-color:var(--line2)}
+.exhr{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.extick{display:none;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:15px;font-weight:800;flex-shrink:0}
+.ex.exdone .extick{display:inline-flex}
+.ex.exdone{border-color:var(--green);background:rgba(46,59,34,.055)}
+.ex.exdone .exh-main b{color:var(--green)}
 .daysel{width:auto;max-width:calc(100% - 130px);margin-left:12px;vertical-align:middle;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:7px;background:var(--panel);border:1px solid var(--line2);color:var(--txt);font-family:inherit}
 .daygo{border:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--cream);cursor:pointer;flex-shrink:0}
 .daygo:active{transform:scale(.95)}
@@ -736,13 +741,13 @@ function openSessionModal(){
     `;
   } else {
     body = '<p class="note" style="margin-bottom:12px">Los pesos en gris (≈) son tu sugerencia inicial según tu nivel. En <b>mancuernas es por cada una</b>. Ajustá para terminar cada serie a 1-3 RIR.</p>' + session.exercises.map((ex,ei)=>`
-      <div class="ex">
+      <div class="ex ${exDone(ei)?'exdone':''}" id="ex-${ei}">
         <div class="exh">
           <div class="exh-main" onclick="openExInfo('${escq(ex.n)}',true)">
             <div class="exthumb">${exArt(ex.n)}</div>
             <div style="min-width:0"><b>${ex.n}</b><br><span class="target">Objetivo: ${ex.target} · ver guía ›</span></div>
           </div>
-          ${swapList(ex.n).length?`<button class="swapbtn" title="Cambiar ejercicio" onclick="openSwap(${session.dayIdx},'${escq(ex.n)}')">⇄</button>`:''}
+          <div class="exhr"><span class="extick" title="Ejercicio completado">✓</span>${swapList(ex.n).length?`<button class="swapbtn" title="Cambiar ejercicio" onclick="openSwap(${session.dayIdx},'${escq(ex.n)}')">⇄</button>`:''}</div>
         </div>
         <div id="sets-${ei}">${ex.sets.map((s,si)=>setRow(ei,si,s)).join('')}</div>
         <button class="miniadd" onclick="addSet(${ei})">+ añadir serie</button>
@@ -766,9 +771,11 @@ function setRow(ei,si,s){
     <button class="rm" onclick="rmSet(${ei},${si})">−</button>
   </div>`;
 }
-function upd(ei,si,k,v){ session.exercises[ei].sets[si][k]=v; saveSoon(); }
-function addSet(ei){ const ex=session.exercises[ei]; const last=ex.sets[ex.sets.length-1]||{w:'',r:''}; ex.sets.push({w:last.w,r:''}); $('#sets-'+ei).innerHTML=ex.sets.map((s,si)=>setRow(ei,si,s)).join(''); saveSoon(); }
-function rmSet(ei,si){ const ex=session.exercises[ei]; if(ex.sets.length<=1)return; ex.sets.splice(si,1); $('#sets-'+ei).innerHTML=ex.sets.map((s,k)=>setRow(ei,k,s)).join(''); saveSoon(); }
+function exDone(ei){ const ex=session&&session.exercises[ei]; return !!(ex && ex.sets && ex.sets.length && ex.sets.every(s=>s.r!==''&&s.r!=null)); }
+function refreshExDone(ei){ const el=document.getElementById('ex-'+ei); if(el) el.classList.toggle('exdone', exDone(ei)); }
+function upd(ei,si,k,v){ session.exercises[ei].sets[si][k]=v; refreshExDone(ei); saveSoon(); }
+function addSet(ei){ const ex=session.exercises[ei]; const last=ex.sets[ex.sets.length-1]||{w:'',r:''}; ex.sets.push({w:last.w,r:''}); $('#sets-'+ei).innerHTML=ex.sets.map((s,si)=>setRow(ei,si,s)).join(''); refreshExDone(ei); saveSoon(); }
+function rmSet(ei,si){ const ex=session.exercises[ei]; if(ex.sets.length<=1)return; ex.sets.splice(si,1); $('#sets-'+ei).innerHTML=ex.sets.map((s,k)=>setRow(ei,k,s)).join(''); refreshExDone(ei); saveSoon(); }
 function closeSession(){
   if(session && session.type==='gym' && session.ref){
     const w=session.ref;
