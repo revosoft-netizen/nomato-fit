@@ -630,7 +630,7 @@ function rotateExercises(){
   save(); flash('Ejercicios rotados 🔄'); setView('entrenar');
 }
 function setDayRoutine(dayIdx, key){ S.routine[dayIdx]=JSON.parse(JSON.stringify(TEMPLATES[key])); save(); setView('entrenar'); }
-function wkDone(w){ if(!w) return false; if(w.done) return true; return (w.exercises||[]).some(ex=>(ex.sets||[]).some(s=>(s.w!=null&&s.w!=='')||(s.r!=null&&s.r!==''))); }
+function wkDone(w){ if(!w) return false; if(w.done) return true; return (w.exercises||[]).some(ex=>(ex.sets||[]).some(s=>(s.r!=null&&s.r!==''))); }
 const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3']];
 function applyPlan(key){ if(!TEMPLATES[key]) return;
   const wk={1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
@@ -700,10 +700,11 @@ function startWorkout(dayIdx, dateOverride){
   } else {
     let w=S.workouts.find(x=>x.date===td && x.dayIdx===dayIdx && x.type==='gym');
     if(!w){
-      const last=S.workouts.filter(x=>x.type==='gym'&&x.dayIdx===dayIdx&&x.date!==td).sort((a,b)=>b.date.localeCompare(a.date))[0];
+      const hist=S.workouts.filter(x=>x.type==='gym'&&x.date!==td&&x.exercises).sort((a,b)=>b.date.localeCompare(a.date));
+      const lastFor=(name)=>{ for(const ww of hist){ const m=(ww.exercises||[]).find(x=>x.n===name && (x.sets||[]).some(s=>(+s.w||0)>0)); if(m) return m; } return null; };
       w={ id:uid(), date:td, dayIdx, name:r.name, type:'gym', note:'', done:false,
         exercises: r.ex.map(e=>{
-          const prev = last && last.exercises ? last.exercises.find(x=>x.n===e.n):null;
+          const prev = lastFor(e.n);
           let pw='';
           if(prev && prev.sets && prev.sets.length){
             const w0=Math.max(0,...prev.sets.map(s=>+s.w||0));
@@ -771,7 +772,7 @@ function rmSet(ei,si){ const ex=session.exercises[ei]; if(ex.sets.length<=1)retu
 function closeSession(){
   if(session && session.type==='gym' && session.ref){
     const w=session.ref;
-    const hasData=(w.exercises||[]).some(ex=>(ex.sets||[]).some(s=>s.w!==''||s.r!==''));
+    const hasData=(w.exercises||[]).some(ex=>(ex.sets||[]).some(s=>s.r!==''&&s.r!=null));
     if(!hasData && !w.done){ S.workouts=S.workouts.filter(x=>x.id!==w.id); save(); }
   }
   session=null; closeModal(); setView(currentView);
