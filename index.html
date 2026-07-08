@@ -463,6 +463,7 @@ const DEFAULT_STATE = {
   bodyweight:[],
   measurements:[],
   nutrition:[],
+  deletedIds:[],
   programStart: todayStr(),
   deloadWeeks:7,
   routineVersion:5,
@@ -1282,7 +1283,7 @@ function parseCfg(raw){ if(raw && typeof raw==='object') return raw; raw=String(
 function normState(s){
   const base=JSON.parse(JSON.stringify(DEFAULT_STATE));
   const o=Object.assign(base, s||{});
-  ['workouts','bodyweight','measurements','nutrition'].forEach(k=>{ if(!Array.isArray(o[k])) o[k]=[]; });
+  ['workouts','bodyweight','measurements','nutrition','deletedIds'].forEach(k=>{ if(!Array.isArray(o[k])) o[k]=[]; });
   if(!o.routine||typeof o.routine!=='object') o.routine=JSON.parse(JSON.stringify(DEFAULT_ROUTINE));
   if(!o.profile) o.profile=base.profile;
   return o;
@@ -1291,6 +1292,9 @@ function mergeState(localS, remote){
   const out=normState(localS); remote=remote||{};
   const uni=(a,b,key)=>{ const m={}; (a||[]).forEach(x=>{ if(x&&x[key]!=null) m[x[key]]=x; }); (b||[]).forEach(x=>{ if(x&&x[key]!=null&&!(x[key] in m)) m[x[key]]=x; }); return Object.values(m); };
   out.workouts=uni(out.workouts, remote.workouts, 'id');
+  const _tomb=new Set([...((localS&&localS.deletedIds)||[]), ...((remote&&remote.deletedIds)||[])]);
+  out.deletedIds=[..._tomb];
+  if(_tomb.size){ out.workouts=out.workouts.filter(w=>!_tomb.has(w.id)); }
   out.nutrition=uni(out.nutrition, remote.nutrition, 'id');
   out.bodyweight=uni(out.bodyweight, remote.bodyweight, 'date');
   out.measurements=uni(out.measurements, remote.measurements, 'date');
