@@ -410,7 +410,7 @@ function doSwap(dayIdx, oldN, newN){
   save();
   if(session && session.dayIdx===dayIdx){
     const se=(session.exercises||[]).find(e=>e.n===oldN);
-    if(se){ se.n=newN; se.sets=se.sets.map(()=>({w:'',r:''})); }
+    if(se){ se.n=newN; se.sets=se.sets.map(()=>({w:'',r:''})); session.ref&&(session.ref._m=Date.now()); }
     closeModal(); openSessionModal();
   } else { closeModal(); setView(currentView); }
   flash('Ejercicio cambiado ⇄');
@@ -719,6 +719,7 @@ function startWorkout(dayIdx, dateOverride){
           const nSets = (prev && prev.sets) ? Math.max(1,prev.sets.length) : e.s;
           return { n:e.n, target:e.r, sets: Array.from({length:nSets},()=>({ w:(pw===''?'':String(pw)), r:'' })) };
         }) };
+      w._m=Date.now();
       S.workouts.push(w); save();
     }
     session={ dayIdx, date:td, name:r.name, type:'gym', exercises:w.exercises, ref:w };
@@ -774,9 +775,9 @@ function setRow(ei,si,s){
 }
 function exDone(ei){ const ex=session&&session.exercises[ei]; return !!(ex && ex.sets && ex.sets.length && ex.sets.every(s=>s.r!==''&&s.r!=null)); }
 function refreshExDone(ei){ const el=document.getElementById('ex-'+ei); if(el) el.classList.toggle('exdone', exDone(ei)); }
-function upd(ei,si,k,v){ session.exercises[ei].sets[si][k]=v; refreshExDone(ei); saveSoon(); }
-function addSet(ei){ const ex=session.exercises[ei]; const last=ex.sets[ex.sets.length-1]||{w:'',r:''}; ex.sets.push({w:last.w,r:''}); $('#sets-'+ei).innerHTML=ex.sets.map((s,si)=>setRow(ei,si,s)).join(''); refreshExDone(ei); saveSoon(); }
-function rmSet(ei,si){ const ex=session.exercises[ei]; if(ex.sets.length<=1)return; ex.sets.splice(si,1); $('#sets-'+ei).innerHTML=ex.sets.map((s,k)=>setRow(ei,k,s)).join(''); refreshExDone(ei); saveSoon(); }
+function upd(ei,si,k,v){ session.exercises[ei].sets[si][k]=v; if(session&&session.ref) session.ref._m=Date.now(); refreshExDone(ei); saveSoon(); }
+function addSet(ei){ const ex=session.exercises[ei]; const last=ex.sets[ex.sets.length-1]||{w:'',r:''}; ex.sets.push({w:last.w,r:''}); $('#sets-'+ei).innerHTML=ex.sets.map((s,si)=>setRow(ei,si,s)).join(''); if(session&&session.ref) session.ref._m=Date.now(); refreshExDone(ei); saveSoon(); }
+function rmSet(ei,si){ const ex=session.exercises[ei]; if(ex.sets.length<=1)return; ex.sets.splice(si,1); $('#sets-'+ei).innerHTML=ex.sets.map((s,k)=>setRow(ei,k,s)).join(''); if(session&&session.ref) session.ref._m=Date.now(); refreshExDone(ei); saveSoon(); }
 function closeSession(){
   if(session && session.type==='gym' && session.ref){
     const w=session.ref;
@@ -787,11 +788,11 @@ function closeSession(){
 }
 function saveSession(){
   if(session.type==='soccer'){
-    const w={ id:uid(), date:session.date||todayStr(), dayIdx:session.dayIdx, name:session.name, type:'soccer', done:true,
+    const w={ id:uid(), date:session.date||todayStr(), dayIdx:session.dayIdx, name:session.name, type:'soccer', done:true, _m:Date.now(),
       soccer:{ minutes:+($('#scMin').value||0), intensity:$('#scInt').value, goals:+($('#scGoals').value||0), assists:+($('#scAssists').value||0), note:$('#scNote').value }, exercises:[] };
     S.workouts.push(w); save(); closeModal(); session=null; setView(currentView); flash('Partido guardado ⚽'); return;
   }
-  const w=session.ref; w.done=true;
+  const w=session.ref; w.done=true; w._m=Date.now();
   w.exercises.forEach(ex=>{ if(ex.sets.length>1) ex.sets=ex.sets.filter((s,i)=> s.w!==''||s.r!==''||i===0); });
   save();
   const prog=w.exercises.filter(ex=>progressReady(ex, ex.target)).map(ex=>ex.n);
@@ -1288,10 +1289,16 @@ function normState(s){
   if(!o.profile) o.profile=base.profile;
   return o;
 }
+function mergeWk(a,b){
+  const m={};
+  const filled=w=>(w.exercises||[]).reduce((x,e)=>x+(e.sets||[]).filter(s=>s.r!==''&&s.r!=null).length,0);
+  const put=w=>{ if(!w||w.id==null) return; const cur=m[w.id]; if(!cur){ m[w.id]=w; return; } const tc=+cur._m||0, tw=+w._m||0; if(tw>tc || (tw===tc && filled(w)>filled(cur))) m[w.id]=w; };
+  (a||[]).forEach(put); (b||[]).forEach(put); return Object.values(m);
+}
 function mergeState(localS, remote){
   const out=normState(localS); remote=remote||{};
   const uni=(a,b,key)=>{ const m={}; (a||[]).forEach(x=>{ if(x&&x[key]!=null) m[x[key]]=x; }); (b||[]).forEach(x=>{ if(x&&x[key]!=null&&!(x[key] in m)) m[x[key]]=x; }); return Object.values(m); };
-  out.workouts=uni(out.workouts, remote.workouts, 'id');
+  out.workouts=mergeWk(out.workouts, remote.workouts);
   const _tomb=new Set([...((localS&&localS.deletedIds)||[]), ...((remote&&remote.deletedIds)||[])]);
   out.deletedIds=[..._tomb];
   if(_tomb.size){ out.workouts=out.workouts.filter(w=>!_tomb.has(w.id)); }
