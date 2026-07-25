@@ -1,4 +1,4 @@
-const C='nomato-fit-v22';
+const C='nomato-fit-v23';
 self.addEventListener('install',e=>{ self.skipWaiting(); e.waitUntil(caches.open(C).then(c=>c.addAll(['./icon-192.png','./icon-512.png','./apple-touch-icon.png','./manifest.webmanifest'])).catch(()=>{})); });
 self.addEventListener('activate',e=>{ e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim())); });
 self.addEventListener('fetch',e=>{

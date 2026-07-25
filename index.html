@@ -15,6 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <style>
 :root{
   --green:#2e3b22; --green-d:#222b18; --green-l:#3c4d2c;
@@ -1327,10 +1328,12 @@ function connectSync(cfgRaw, code, fromUI){
   if(!code){ if(fromUI) alert('Escribí un código de sincronización (el mismo en todos tus dispositivos).'); return; }
   try{
     if(!firebase.apps.length) firebase.initializeApp(config);
-    const db=firebase.database();
-    syncRef=db.ref('fitmauro/'+code.replace(/[.#$\[\]/]/g,'_'));
     saveSyncCfg({config, code});
     setSyncStatus('Conectando…','wait');
+    const proceed=()=>{
+    if(syncRef) return;
+    const db=firebase.database();
+    syncRef=db.ref('fitmauro/'+code.replace(/[.#$\[\]/]/g,'_'));
     syncRef.once('value').then(snap=>{
       const v=snap.val();
       const merged=mergeState(S, v||{});
@@ -1339,7 +1342,17 @@ function connectSync(cfgRaw, code, fromUI){
       renderHeader(); setView(currentView); setSyncStatus('Sincronizado ✓','ok');
       syncRef.on('value', snap2=>{ const d=snap2.val(); if(!d||!d.profile) return; if(d._rev && d._rev===myRev) return; S=mergeState(S,d); localStorage.setItem(LS_KEY, JSON.stringify(S)); renderHeader(); setView(currentView); setSyncStatus('Sincronizado ✓','ok'); });
       if(fromUI) flash('Sincronización activada ☁️');
-    }).catch(e=>{ setSyncStatus('Error de conexión','err'); if(fromUI) alert('Error al conectar: '+e.message+'\nRevisá las reglas de Realtime Database (modo de prueba).'); });
+    }).catch(e=>{ setSyncStatus('Error de conexión','err'); if(fromUI) alert('Error al conectar: '+e.message+'\nRevisá las reglas de Realtime Database.'); });
+    };
+    if(firebase.auth){
+      const auth=firebase.auth();
+      if(auth.currentUser){ proceed(); }
+      else {
+        if(!window.__authHook){ window.__authHook=true; auth.onAuthStateChanged(u=>{ if(u) proceed(); }); }
+        auth.signInAnonymously().catch(e=>{ proceed(); if(fromUI) setTimeout(function(){ alert('Nota: para proteger tus datos, activá el proveedor "Anónimo" en Firebase → Authentication → Sign-in method.\n\n'+e.message); },100); });
+        setTimeout(proceed, 4000);
+      }
+    } else { proceed(); }
   }catch(e){ setSyncStatus('Error','err'); if(fromUI) alert('Error: '+e.message); }
 }
 function disconnectSync(){ if(syncRef){ try{ syncRef.off(); }catch(e){} syncRef=null; } localStorage.removeItem(SYNC_CFG_KEY); setSyncStatus('Desconectado',''); flash('Sincronización desactivada'); }
