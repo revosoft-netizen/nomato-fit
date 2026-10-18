@@ -232,6 +232,43 @@ const TEMPLATES = {
       {n:'Elevaciones laterales', s:3, r:'12-15'},
       {n:'Curl con barra', s:3, r:'8-10'},
       {n:'Extensión tríceps polea', s:3, r:'10-15'}]},
+  an_up: {type:'gym', name:'Anselmi · Sin piernas', ex:[
+      {n:'Elevaciones de tronco', s:3, r:'12-15'},
+      {n:'Twist soviético', s:3, r:'8-10'},
+      {n:'Press banca con barra', s:4, r:'4-6'},
+      {n:'Lagartijas con aplauso', s:3, r:'5-8'},
+      {n:'Dominadas / Jalón al pecho', s:4, r:'5-8'},
+      {n:'Lanzamiento de pelota medicinal al pecho', s:3, r:'5-6'},
+      {n:'Remo en polea baja', s:3, r:'6-8'},
+      {n:'Press militar', s:3, r:'5-6'}]},
+  an_a: {type:'gym', name:'Anselmi · Día A', ex:[
+      {n:'Twist soviético', s:3, r:'8-10'},
+      {n:'Hiperextensiones lumbares', s:3, r:'10-12'},
+      {n:'Cargada de potencia colgado', s:4, r:'3-5'},
+      {n:'Sentadilla adelante', s:4, r:'4-6'},
+      {n:'Salto al cajón', s:3, r:'5-6'},
+      {n:'Press banca con barra', s:4, r:'4-6'},
+      {n:'Lanzamiento de pelota medicinal al pecho', s:3, r:'5-6'},
+      {n:'Aductores en máquina', s:3, r:'12-15'}]},
+  an_b: {type:'gym', name:'Anselmi · Día B', ex:[
+      {n:'Elevaciones de tronco', s:3, r:'12-15'},
+      {n:'Hiperextensiones lumbares', s:3, r:'10-12'},
+      {n:'Arranque de potencia colgado', s:4, r:'3-5'},
+      {n:'Peso muerto rumano', s:4, r:'5-6'},
+      {n:'Salto largo sin impulso', s:3, r:'5-6'},
+      {n:'Dominadas / Jalón al pecho', s:4, r:'5-8'},
+      {n:'Lanzamiento de pelota medicinal hacia atrás', s:3, r:'5-6'},
+      {n:'Aductores en máquina', s:3, r:'12-15'}]},
+  an_c: {type:'gym', name:'Anselmi · Día C', ex:[
+      {n:'Twist soviético', s:3, r:'8-10'},
+      {n:'Hiperextensiones lumbares', s:3, r:'10-12'},
+      {n:'Arranque a un brazo con mancuerna', s:4, r:'3-4'},
+      {n:'Subidas al banco', s:3, r:'5-6'},
+      {n:'Saltos laterales', s:3, r:'5-6'},
+      {n:'Segundo tiempo de potencia', s:4, r:'3-5'},
+      {n:'Remo con barra', s:4, r:'5-6'},
+      {n:'Saques laterales con pelota medicinal', s:3, r:'5-6'},
+      {n:'Aductores en máquina', s:3, r:'12-15'}]},
   soccer: {type:'soccer', name:'Fútbol', ex:[]},
   rest: {type:'rest', name:'Descanso / Movilidad', ex:[]},
 };
@@ -278,6 +315,23 @@ const EXDB={
   'Prensa':{key:'legPress',m:['Cuádriceps','Glúteo'],tip:['Pies a la anchura de la cadera en la plataforma.','Baja hasta ~90° sin despegar la zona lumbar.','No bloquees de golpe las rodillas arriba.']},
   'Curl femoral':{key:'legCurl',m:['Femoral'],tip:['Ajusta el rodillo justo sobre el talón.','Flexiona llevando el talón hacia el glúteo.','Baja lento, sin soltar de golpe.']},
   'Gemelos de pie':{key:'calf',m:['Gemelo','Sóleo'],tip:['Sube lo más alto posible sobre las puntas.','Aprieta arriba 1 segundo.','Baja hasta sentir el estiramiento completo.']},
+  'Twist soviético':{m:['Oblicuos','Transverso','Core'],tip:['Para Anselmi, el mejor ejercicio integral de zona media.','Sentado, tronco a ~45° y pies despegados del piso; girá de lado a lado con un disco o pelota.','La rotación sale del tronco, no de los brazos. Reps por lado. Va al comienzo, como entrada en calor.']},
+  'Hiperextensiones lumbares':{m:['Lumbares','Glúteo','Isquios'],tip:['En banco de hiperextensiones, pelvis apoyada, bajá el tronco con la espalda recta.','Subí hasta alinear el cuerpo, sin hiperextender de más.','Zona media primero: sostén de la columna antes de lo pesado.']},
+  'Elevaciones de tronco':{m:['Recto abdominal','Transverso'],tip:['Boca arriba, rodillas flexionadas y pies apoyados.','Exhalá suave mientras despegás cabeza, hombros y tronco, metiendo el ombligo.','Bajá controlado. Podés sumar un disco al pecho.']},
+  'Cargada de potencia colgado':{m:['Glúteo','Cuádriceps','Isquios','Trapecio'],tip:['Barra a mitad de muslo, espalda recta, hombros por delante de la barra.','Extensión violenta de tobillos, rodillas y cadera ("saltá"), codos altos y barra pegada al cuerpo; recibila sobre los hombros con flexión mínima.','Pocas reps a máxima velocidad. Anselmi enseña con la barra vacía (20 kg) y sube hasta el peso "ajustado": el máximo con técnica perfecta.']},
+  'Arranque de potencia colgado':{m:['Glúteo','Cuádriceps','Trapecio','Hombros'],tip:['Agarre ancho, barra a mitad de muslo, espalda recta.','Extensión explosiva de piernas y cadera, codos altos, y la barra termina arriba con brazos extendidos y flexión mínima de rodillas.','Es el ejercicio más veloz: si la barra se frena, el peso es excesivo. Barra vacía al empezar.']},
+  'Arranque a un brazo con mancuerna':{m:['Glúteo','Cuádriceps','Hombros','Core'],tip:['Mancuerna colgando entre las piernas, espalda recta.','Tirón brusco con el codo alto y la mancuerna pegada al cuerpo hasta extender el brazo arriba.','Corrige asimetrías y entrena la acción del brazo. Reps por lado.']},
+  'Segundo tiempo de potencia':{m:['Hombros','Tríceps','Cuádriceps'],tip:['Barra apoyada en los hombros (posición final de la cargada).','Semiflexión corta de rodillas y empuje explosivo hacia arriba, bajando apenas el cuerpo para recibirla con brazos extendidos.','Según Anselmi es tan veloz que no necesita transferencia.']},
+  'Sentadilla adelante':{m:['Cuádriceps','Glúteo','Core'],tip:['Barra sobre los hombros con codos altos apuntando al frente.','Bajá profundo con el tronco lo más vertical posible y talones apoyados.','Usa ~20% menos peso sobre la columna que la de atrás. Al terminar cada serie, pasá directo al salto (transferencia).']},
+  'Subidas al banco':{m:['Cuádriceps','Glúteo'],tip:['Banco a la altura de la rodilla, mancuernas en las manos.','Subí empujando con la pierna de arriba, sin impulsarte con la de abajo.','Trabajo unipodal: fortalece la pelvis y corrige asimetrías. Reps por pierna.']},
+  'Salto al cajón':{m:['Cuádriceps','Glúteo','Pantorrillas'],tip:['Transferencia de la sentadilla: hacelo apenas terminás la serie.','Saltá a máxima altura y caé suave arriba del cajón; bajá caminando.','Cortá la serie cuando el salto pierde altura.']},
+  'Salto largo sin impulso':{m:['Glúteo','Isquios','Cuádriceps'],tip:['Transferencia del peso muerto / sentadilla.','Pies juntos, contramovimiento rápido con los brazos y saltá lo más lejos posible.','Recuperá caminando. Calidad máxima en cada salto.']},
+  'Saltos laterales':{m:['Glúteo medio','Aductores','Cuádriceps'],tip:['Saltos de lado a lado sobre una línea o una valla baja.','Contacto corto con el piso, rebotá rápido.','Fuerza reactiva lateral, clave para los cambios de dirección en fútbol.']},
+  'Lanzamiento de pelota medicinal al pecho':{m:['Pecho','Tríceps','Hombros'],tip:['Transferencia del press de banca: hacelo apenas terminás la serie.','Pelota de 3-5 kg contra la pared o a un compañero, lanzá explosivo desde el pecho.','Cada serie dura menos de 6 segundos; mientras la distancia/velocidad no baje.']},
+  'Lanzamiento de pelota medicinal hacia atrás':{m:['Glúteo','Isquios','Lumbares'],tip:['Pelota entre las piernas, semiflexión rápida.','Extensión explosiva de piernas y cadera lanzándola por arriba de la cabeza hacia atrás.','Transferencia de la bisagra de cadera: máxima distancia.']},
+  'Saques laterales con pelota medicinal':{m:['Oblicuos','Core','Cadera'],tip:['De costado a la pared, rotá y lanzá la pelota con fuerza.','El giro arranca en las piernas y la cadera y termina en los brazos.','Ejercicio diagonal: Anselmi insiste en que ser fuerte en el plano no es ser fuerte en diagonal. Reps por lado.']},
+  'Lagartijas con aplauso':{m:['Pecho','Tríceps'],tip:['Flexión explosiva que despega las manos del piso.','Contacto con el piso lo más corto posible.','Pliometría de tren superior: cortá cuando pierdas velocidad.']},
+  'Aductores en máquina':{m:['Aductores'],tip:['Prevención de la pubalgia, que Anselmi indica en todos los planes de fútbol.','Cerrá las piernas controlando, pausa 1 s, y abrí lento.','Alternativa: plancha lateral de Copenhague.']},
   'Plancha (core)':{key:'plank',m:['Core','Abdomen'],tip:['Cuerpo en línea recta de cabeza a talones.','Aprieta abdomen y glúteos; no hundas la cadera.','Respira normal y aguanta el tiempo objetivo.']},
   'Hip thrust':{key:'hipthrust',m:['Glúteo','Femoral'],tip:['Omóplatos apoyados en el banco.','Empuja con los talones y bloquea apretando glúteos.','Mantén el mentón metido, mirada al frente.']},
   'Press banca mancuerna':{key:'benchDB',m:['Pecho','Tríceps','Hombro ant.'],tip:['Mayor recorrido que con barra: aprovecha el estiramiento.','Baja hasta los lados del pecho.','Mantén las muñecas firmes y alineadas.']},
@@ -325,6 +379,12 @@ const EXVID={
   'Plancha (core)':'mwlp75MS6Rg',
 };
 const EXIMG={
+  'Twist soviético':'Russian_Twist','Hiperextensiones lumbares':'Hyperextensions_With_No_Hyperextension_Bench','Elevaciones de tronco':'Crunches',
+  'Cargada de potencia colgado':'Hang_Clean','Arranque de potencia colgado':'Hang_Snatch','Arranque a un brazo con mancuerna':'One-Arm_Kettlebell_Snatch',
+  'Segundo tiempo de potencia':'Push_Press','Sentadilla adelante':'Front_Barbell_Squat','Subidas al banco':'Dumbbell_Step_Ups',
+  'Salto al cajón':'Front_Box_Jump','Salto largo sin impulso':'Standing_Long_Jump','Saltos laterales':'Lateral_Cone_Hops',
+  'Lanzamiento de pelota medicinal al pecho':'Medicine_Ball_Chest_Pass','Lanzamiento de pelota medicinal hacia atrás':'Medicine_Ball_Scoop_Throw',
+  'Saques laterales con pelota medicinal':'Medicine_Ball_Full_Twist','Lagartijas con aplauso':'Plyo_Push-up','Aductores en máquina':'Thigh_Adductor',
   'Hack squat':'Hack_Squat',
   'Extensión de cuádriceps':'Leg_Extension',
   'Aperturas en máquina':'Butterfly',
@@ -377,6 +437,13 @@ const SUGGEST={
   'Abdominales rueda':null,'Press militar mancuerna':12.5,'Gemelo sentado':30,
   'Curl femoral sentado':25,'Elevaciones laterales en polea':5,
 };
+Object.assign(SUGGEST,{
+  'Twist soviético':5,'Hiperextensiones lumbares':null,'Elevaciones de tronco':null,
+  'Cargada de potencia colgado':30,'Arranque de potencia colgado':20,'Arranque a un brazo con mancuerna':10,'Segundo tiempo de potencia':30,
+  'Sentadilla adelante':40,'Subidas al banco':10,'Salto al cajón':null,'Salto largo sin impulso':null,'Saltos laterales':null,
+  'Lanzamiento de pelota medicinal al pecho':4,'Lanzamiento de pelota medicinal hacia atrás':4,'Saques laterales con pelota medicinal':3,
+  'Lagartijas con aplauso':null,'Aductores en máquina':30
+});
 const PAT={
   'Hack squat':'squat','Extensión de cuádriceps':'squat',
   'Aperturas en máquina':'push_h','Cruce de poleas':'push_h',
@@ -395,9 +462,15 @@ const PAT={
   'Peso muerto rumano':'hinge','Hip thrust':'hinge',
   'Curl femoral':'hamstrings','Curl femoral sentado':'hamstrings',
   'Gemelos de pie':'calves','Gemelo sentado':'calves',
-  'Plancha (core)':'core','Abdominales rueda':'core',
+  'Plancha (core)':'core','Abdominales rueda':'core','Twist soviético':'core','Elevaciones de tronco':'core',
+  'Hiperextensiones lumbares':'back_ext',
+  'Cargada de potencia colgado':'dyn','Arranque de potencia colgado':'dyn','Arranque a un brazo con mancuerna':'dyn','Segundo tiempo de potencia':'dyn',
+  'Sentadilla adelante':'squat','Subidas al banco':'squat',
+  'Salto al cajón':'plyo_v','Salto largo sin impulso':'plyo_v','Saltos laterales':'plyo_v',
+  'Lanzamiento de pelota medicinal al pecho':'mb','Lanzamiento de pelota medicinal hacia atrás':'mb','Saques laterales con pelota medicinal':'mb','Lagartijas con aplauso':'mb',
+  'Aductores en máquina':'adductor',
 };
-function swapList(name){ return Object.keys(PAT).filter(n=>n!==name && PAT[n]===PAT[name] && EXVID[n]); }
+function swapList(name){ return Object.keys(PAT).filter(n=>n!==name && PAT[n]===PAT[name] && (EXVID[n]||EXIMG[n])); }
 function openSwap(dayIdx,name){
   const opts=swapList(name);
   showModal(`<div class="mhead"><h3>Cambiar ejercicio</h3><button class="x" onclick="closeSwap()">✕</button></div>
@@ -622,7 +695,7 @@ function viewEntrenar(){
   `;
 }
 function icon(n,s){s=s||22;const I={dumbbell:'<line x1="6" y1="12" x2="18" y2="12"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="3" y1="10" x2="3" y2="14"/><line x1="18" y1="8" x2="18" y2="16"/><line x1="21" y1="10" x2="21" y2="14"/>',chart:'<polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/>',book:'<path d="M3 4.5h6a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H3z"/><path d="M21 4.5h-6a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H21z"/>',settings:'<line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="9" cy="8" r="2.2"/><circle cx="15" cy="16" r="2.2"/>',ball:'<circle cx="12" cy="12" r="9"/><path d="M12 7.5l3.7 2.7-1.4 4.5H9.7L8.3 10.2z"/><path d="M12 3.2v4.3M4.2 9.6l4 1.1M19.8 9.6l-4 1.1M7.2 18.8l2.4-3.6M16.8 18.8l-2.4-3.6"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>'};return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block">'+(I[n]||'')+'</svg>';}
-function tplKeyFor(r){ if(!r) return 'rest'; if(r.type==='rest')return 'rest'; if(r.type==='soccer')return 'soccer'; if(r.name===TEMPLATES.r2.name)return 'r2'; if(r.name===TEMPLATES.r3.name)return 'r3'; if(r.name===TEMPLATES.nolegs.name)return 'nolegs'; return 'r1'; }
+function tplKeyFor(r){ if(!r) return 'rest'; if(r.name && String(r.name).indexOf('Anselmi')===0) return 'anselmi'; if(r.type==='rest')return 'rest'; if(r.type==='soccer')return 'soccer'; if(r.name===TEMPLATES.r2.name)return 'r2'; if(r.name===TEMPLATES.r3.name)return 'r3'; if(r.name===TEMPLATES.nolegs.name)return 'nolegs'; return 'r1'; }
 function rotateExercises(){
   [1,2,3,4,5,6,0].forEach(d=>{ const day=S.routine[d]; if(!day||day.type!=='gym') return;
     const used=new Set(day.ex.map(e=>e.n));
@@ -638,9 +711,9 @@ function rotateExercises(){
 }
 function setDayRoutine(dayIdx, key){ S.routine[dayIdx]=JSON.parse(JSON.stringify(TEMPLATES[key])); save(); setView('entrenar'); }
 function wkDone(w){ if(!w) return false; if(w.done) return true; return (w.exercises||[]).some(ex=>(ex.sets||[]).some(s=>(s.r!=null&&s.r!==''))); }
-const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3']];
-function applyPlan(key){ if(!TEMPLATES[key]) return;
-  const wk={1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
+const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3'],['anselmi','Anselmi']];
+function applyPlan(key){ if(key!=='anselmi' && !TEMPLATES[key]) return;
+  const wk= key==='anselmi' ? {1:'an_up',2:'soccer',3:'an_a',4:'an_b',5:'an_c',6:'an_up',0:'soccer'} : {1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
   Object.keys(wk).forEach(d=>{ S.routine[d]=JSON.parse(JSON.stringify(TEMPLATES[wk[d]])); });
   save(); flash('Rutina de la semana aplicada 🔄'); setView('entrenar');
 }
@@ -1096,6 +1169,21 @@ function viewGuia(){
         <li><b>Grasas</b>: 20-35% de las calorías (~50-75 g). Importan para las hormonas.</li>
         <li><b>Carbohidratos</b>: lo que queda. Son tu combustible de entrenamiento; sumá fibra (verduras, fruta, integrales) para saciedad.</li>
         <li>Repartí en <b>3-5 comidas</b>; lo que más pesa es el total del día, no el horario.</li>
+      </ul>
+    </div>
+
+    <div class="card"><h3>🇦🇷 Método Anselmi</h3>
+      <p style="margin:0 0 10px">De <b>Cantidad de calidad</b> y el <b>Manual de Fuerza y Potencia</b> de Horacio Anselmi (preparador de Las Leonas, Los Pumas, Copa Davis). Su idea central: primero lograr gestos de <b>calidad</b> (coordinados, potentes y repentinos) y después repetirlos todas las veces que haga falta.</p>
+      <ul class="tips">
+        <li><b>Orden de cada sesión</b>: zona media primero (entrada en calor y sostén de la columna) → ejercicio dinámico (cargada o arranque) → fuerza básica + su transferencia → aductores.</li>
+        <li><b>Dinámicos con pocas reps (3-5) y a máxima velocidad</b>. Se empieza con la barra vacía y se sube hasta el peso "ajustado": el máximo que sale con técnica perfecta. Si la barra se frena, sobra peso.</li>
+        <li><b>Transferencia</b>: apenas terminás la serie pesada pasás al gesto rápido. Sentadilla → salto; banco → pelota medicinal o lagartijas con aplauso; tirones → lanzamiento hacia atrás.</li>
+        <li><b>Series cortas</b>: cada serie de saltos o lanzamientos dura menos de 6 segundos y se corta cuando baja la altura o la distancia. Pausas completas (2-3 min) en lo pesado.</li>
+        <li>Evitá las series largas al fallo: según Anselmi empeoran la sincronización y el tiempo de reacción.</li>
+        <li><b>Ejercicios diagonales y unipodales</b> (saques laterales, subidas al banco, arranque a un brazo) para simetría y balance.</li>
+        <li><b>Aductores siempre</b> para prevenir la pubalgia en futbolistas.</li>
+        <li>En temporada (jugás martes y domingo) su plan es de <b>mantenimiento</b>: menos días y menos intensidad que en pretemporada. Elegí 2-3 días entre lunes y sábado. Lunes y sábado son sin piernas, por los partidos.</li>
+        <li><b>Progresión</b>: mismas reps con más peso. Si te estancás, sumá un par de series con el mismo peso y la semana siguiente intentá subir.</li>
       </ul>
     </div>
 
