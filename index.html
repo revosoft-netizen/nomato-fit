@@ -310,7 +310,8 @@ const TEMPLATES = {
 TEMPLATES.nf_a=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_a)),{name:'Sin fútbol · Día A (Anselmi)'});
 TEMPLATES.nf_b=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_b)),{name:'Sin fútbol · Día B (Anselmi)'});
 TEMPLATES.nf_c=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_c)),{name:'Sin fútbol · Día C (Anselmi)'});
-TEMPLATES.nf_int={type:'gym', name:'Sin fútbol · Intermitente 15×15 (reemplaza el partido)', ex:[
+TEMPLATES.nf_up=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_up)),{name:'Sin fútbol · Sin piernas (víspera del partido)'});
+TEMPLATES.nf_int={type:'gym', name:'Sin fútbol · Intermitente 15×15 (reemplaza el partido del martes)', ex:[
   {n:'Saltos a la soga', s:2, r:'20-30'},
   {n:'Intermitente 15×15', s:1, r:'16-24'},
   {n:'Plantar y cortar', s:2, r:'4'},
@@ -801,9 +802,9 @@ function rotateExercises(){
 }
 function setDayRoutine(dayIdx, key){ S.routine[dayIdx]=JSON.parse(JSON.stringify(TEMPLATES[key])); save(); setView('entrenar'); }
 function wkDone(w){ if(!w) return false; if(w.done) return true; return (w.exercises||[]).some(ex=>(ex.sets||[]).some(s=>(s.r!=null&&s.r!==''))); }
-const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3'],['anselmi','Anselmi'],['plio','Pliometría fútbol'],['nofut','Semana sin fútbol (puntual)']];
+const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3'],['anselmi','Anselmi'],['plio','Pliometría fútbol'],['nofut','Semana sin partido del martes (puntual)']];
 function applyPlan(key){ if(key!=='anselmi' && key!=='plio' && key!=='nofut' && !TEMPLATES[key]) return;
-  const wk= key==='nofut' ? {1:'nf_a',2:'nf_int',3:'nf_b',4:'rest',5:'nf_c',6:'nf_int',0:'rest'} : key==='plio' ? {1:'pl_up',2:'soccer',3:'pl_a',4:'pl_c',5:'pl_b',6:'pl_up',0:'soccer'} : key==='anselmi' ? {1:'an_up',2:'soccer',3:'an_a',4:'an_b',5:'an_c',6:'an_up',0:'soccer'} : {1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
+  const wk= key==='nofut' ? {1:'nf_a',2:'nf_int',3:'nf_b',4:'rest',5:'nf_c',6:'nf_up',0:'soccer'} : key==='plio' ? {1:'pl_up',2:'soccer',3:'pl_a',4:'pl_c',5:'pl_b',6:'pl_up',0:'soccer'} : key==='anselmi' ? {1:'an_up',2:'soccer',3:'an_a',4:'an_b',5:'an_c',6:'an_up',0:'soccer'} : {1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
   Object.keys(wk).forEach(d=>{ S.routine[d]=JSON.parse(JSON.stringify(TEMPLATES[wk[d]])); });
   save(); flash('Rutina de la semana aplicada 🔄'); setView('entrenar');
 }
@@ -1272,7 +1273,7 @@ function viewGuia(){
         <li>Evitá las series largas al fallo: según Anselmi empeoran la sincronización y el tiempo de reacción.</li>
         <li><b>Ejercicios diagonales y unipodales</b> (saques laterales, subidas al banco, arranque a un brazo) para simetría y balance.</li>
         <li><b>Aductores siempre</b> para prevenir la pubalgia en futbolistas.</li>
-        <li><b>Semanas sin partido</b>: elegí "Semana sin fútbol (puntual)". Los días de partido se reemplazan por su intermitente 15"×15" y no hay días sin piernas. A la semana siguiente volvé a elegir tu rutina.</li>
+        <li><b>Semanas sin partido</b>: elegí "Semana sin partido del martes (puntual)". El martes se reemplaza por el intermitente 15×15 de Anselmi, el lunes lleva piernas, y el sábado queda sin piernas porque el domingo se juega. A la semana siguiente volvé a elegir tu rutina.</li>
         <li>En temporada (jugás martes y domingo) su plan es de <b>mantenimiento</b>: menos días y menos intensidad que en pretemporada. Elegí 2-3 días entre lunes y sábado. Lunes y sábado son sin piernas, por los partidos.</li>
         <li><b>Progresión</b>: mismas reps con más peso. Si te estancás, sumá un par de series con el mismo peso y la semana siguiente intentá subir.</li>
       </ul>
