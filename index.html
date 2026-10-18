@@ -269,40 +269,40 @@ const TEMPLATES = {
       {n:'Remo con barra', s:4, r:'5-6'},
       {n:'Saques laterales con pelota medicinal', s:3, r:'5-6'},
       {n:'Aductores en máquina', s:3, r:'12-15'}]},
-  pl_up: {type:'gym', name:'Pliometría · Tren superior', ex:[
+  pl_up: {type:'gym', name:'Pliometría fútbol · Tren superior', ex:[
       {n:'Elevaciones de tronco', s:3, r:'12-15'},
       {n:'Twist soviético', s:3, r:'8-10'},
-      {n:'Press banca con barra', s:4, r:'4-6'},
-      {n:'Lagartijas con aplauso', s:4, r:'5-8'},
-      {n:'Lanzamiento de pelota medicinal al pecho', s:3, r:'5-6'},
-      {n:'Dominadas / Jalón al pecho', s:4, r:'5-8'},
+      {n:'Press banca con barra', s:3, r:'4-6'},
+      {n:'Lagartijas con aplauso', s:3, r:'5-8'},
+      {n:'Dominadas / Jalón al pecho', s:3, r:'5-8'},
       {n:'Lanzamiento por sobre la cabeza (saque lateral)', s:3, r:'5-6'},
-      {n:'Saques laterales con pelota medicinal', s:3, r:'5-6'}]},
-  pl_a: {type:'gym', name:'Pliometría · Día A · Coordinación', ex:[
+      {n:'Saques laterales con pelota medicinal', s:3, r:'5-6'},
+      {n:'Nórdico (isquios)', s:2, r:'4-6'}]},
+  pl_a: {type:'gym', name:'Pliometría fútbol · Día A · Aceleración y cabezazo', ex:[
       {n:'Twist soviético', s:3, r:'8-10'},
       {n:'Saltos a la soga', s:3, r:'20-30'},
-      {n:'Escalera de coordinación', s:3, r:'8-10'},
-      {n:'Saltos en cuadrilátero a un pie', s:3, r:'8-10'},
+      {n:'Multisaltos alternados', s:3, r:'6-8'},
+      {n:'Salto largo + pique 10 m', s:3, r:'3-4'},
+      {n:'Salto de cabeceo', s:3, r:'4-5'},
       {n:'Sentadilla adelante', s:3, r:'4-6'},
       {n:'Salto al cajón', s:3, r:'5'},
-      {n:'Prisioneros', s:3, r:'6-8'},
-      {n:'Aductores en máquina', s:3, r:'12-15'}]},
-  pl_c: {type:'gym', name:'Pliometría · Día C · Intensidad', ex:[
+      {n:'Nórdico (isquios)', s:3, r:'4-6'}]},
+  pl_c: {type:'gym', name:'Pliometría fútbol · Día C · Potencia reactiva', ex:[
       {n:'Elevaciones de tronco', s:3, r:'12-15'},
       {n:'Cargada de potencia colgado', s:4, r:'3-5'},
-      {n:'Salto profundo', s:4, r:'4-5'},
-      {n:'Saltos sobre vallas', s:3, r:'5'},
+      {n:'Salto profundo + pique 5 m', s:3, r:'4-5'},
+      {n:'Saltos sobre vallas + pique', s:3, r:'4-5'},
       {n:'Peso muerto rumano', s:3, r:'5-6'},
       {n:'Salto largo sin impulso', s:3, r:'4-5'},
-      {n:'Saltos continuos', s:2, r:'8-10'}]},
-  pl_b: {type:'gym', name:'Pliometría · Día B · Lateralidad', ex:[
+      {n:'Aductores en máquina', s:3, r:'12-15'}]},
+  pl_b: {type:'gym', name:'Pliometría fútbol · Día B · Frenado y cambio de dirección', ex:[
       {n:'Hiperextensiones lumbares', s:3, r:'10-12'},
       {n:'Saltos laterales', s:3, r:'8-10'},
-      {n:'Saltos laterales a un pie', s:3, r:'6-8'},
-      {n:'Ranas', s:3, r:'5-6'},
-      {n:'Patinador', s:3, r:'6-8'},
+      {n:'Salto lateral a un pie con freno', s:3, r:'5-6'},
+      {n:'Patinador con freno', s:3, r:'5-6'},
+      {n:'Salto lateral + pique', s:3, r:'3-4'},
+      {n:'Plantar y cortar', s:3, r:'4'},
       {n:'Subidas al banco', s:3, r:'5-6'},
-      {n:'Saques laterales con pelota medicinal', s:3, r:'5-6'},
       {n:'Aductores en máquina', s:3, r:'12-15'}]},
   soccer: {type:'soccer', name:'Fútbol', ex:[]},
   rest: {type:'rest', name:'Descanso / Movilidad', ex:[]},
@@ -378,6 +378,16 @@ const EXDB={
   'Saltos sobre vallas':{m:['Cuádriceps','Pantorrillas','Glúteo'],tip:['Fila de 5 vallas bajas o conos.','Saltá con pies juntos, piernas casi extendidas, rebotando con contacto mínimo.','Transferencia con impacto: la fuerza elástica sale del rebote.']},
   'Saltos continuos':{m:['Pantorrillas','Cuádriceps'],tip:['10 segundos saltando lo más alto posible con las piernas casi extendidas.','El mejor salto tiene que salir al principio, no a la mitad.','Es también el test de Anselmi para ver cuántos saltos eficientes tolerás seguidos.']},
   'Lanzamiento por sobre la cabeza (saque lateral)':{m:['Dorsales','Core','Tríceps'],tip:['Pelota medicinal de 3-4 kg con las dos manos, como un saque lateral de fútbol.','Arqueá apenas el tronco y lanzá explosivo hacia adelante o contra la pared.','Es la transferencia que Anselmi indica para las tracciones (dominadas, remos).']},
+  'Multisaltos alternados':{m:['Glúteo','Isquios','Pantorrillas'],tip:['Zancadas saltadas largas, de un pie al otro, como un pique exagerado.','Empujá el piso hacia atrás y llevá la rodilla de adelante alta.','Salto horizontal: transfiere a la aceleración. Contá contactos.']},
+  'Salto largo + pique 10 m':{m:['Glúteo','Isquios','Cuádriceps'],tip:['Salto largo con pies juntos y, al caer, salí en pique 10 metros sin frenar.','Combinar salto y sprint es lo que más mejora la aceleración en futbolistas.','Volvé caminando; pausa completa entre repeticiones.']},
+  'Salto de cabeceo':{m:['Pantorrillas','Cuádriceps','Core'],tip:['2-3 pasos de carrera y despegue a UN pie, como para cabecear.','Brazos y rodilla libre arriba; idealmente con una pelota colgada o que te la tiren.','Caé en los dos pies, suave. Alterná la pierna de despegue. Reps por pierna.']},
+  'Salto profundo + pique 5 m':{m:['Cuádriceps','Pantorrillas','Glúteo'],tip:['Dejate caer de un cajón de 30-40 cm, rebotá con contacto mínimo y salí en pique 5 metros.','El rebote rápido es la fuerza elástica que se usa en cada arranque del partido.','Máxima intensidad: pausas de 3-5 min y cortá si el contacto se alarga.']},
+  'Saltos sobre vallas + pique':{m:['Cuádriceps','Pantorrillas','Glúteo'],tip:['4-5 vallas bajas: saltá con pies juntos y rebote corto.','Al pasar la última valla, salí en pique 5-10 metros.','Calidad máxima en cada contacto.']},
+  'Salto lateral a un pie con freno':{m:['Glúteo medio','Tobillo','Rodilla'],tip:['Saltá a un pie hacia el costado y CLAVÁ la caída 2 segundos.','Rodilla alineada con el pie, cadera atrás, sin que la rodilla se vaya hacia adentro.','Es el control de caída que trabajan los programas de prevención de FIFA (11+). Reps por pierna.']},
+  'Patinador con freno':{m:['Glúteo medio','Aductores','Cuádriceps'],tip:['Salto lateral de un pie al otro y frená la caída 1-2 segundos antes del siguiente.','Cadera baja y atrás, pecho adelante.','Frenar bien es lo que permite cambiar de dirección rápido y sin lesionarse. Reps por lado.']},
+  'Salto lateral + pique':{m:['Glúteo medio','Cuádriceps'],tip:['2-3 saltos laterales sobre una línea y, a la señal, pique de 5-10 metros hacia adelante.','Reaccionar a una señal (aplauso, compañero) lo hace más parecido al partido.','Pausa completa entre repeticiones.']},
+  'Plantar y cortar':{m:['Cuádriceps','Glúteo','Aductores'],tip:['Trotá 5 m, plantá el pie de afuera y cambiá de dirección a 45° o 90°.','Bajá la cadera al plantar, rodilla sobre el pie y tronco hacia la nueva dirección.','Del programa FIFA 11+. Reps por lado, a velocidad creciente.']},
+  'Nórdico (isquios)':{m:['Isquios'],tip:['De rodillas, alguien te sostiene los tobillos.','Bajá el cuerpo recto hacia adelante lo más lento que puedas, frenando con los isquios; ayudate con las manos al llegar abajo.','En fútbol, sumarlo a la prevención reduce a la mitad las lesiones de isquiotibiales.']},
   'Plancha (core)':{key:'plank',m:['Core','Abdomen'],tip:['Cuerpo en línea recta de cabeza a talones.','Aprieta abdomen y glúteos; no hundas la cadera.','Respira normal y aguanta el tiempo objetivo.']},
   'Hip thrust':{key:'hipthrust',m:['Glúteo','Femoral'],tip:['Omóplatos apoyados en el banco.','Empuja con los talones y bloquea apretando glúteos.','Mantén el mentón metido, mirada al frente.']},
   'Press banca mancuerna':{key:'benchDB',m:['Pecho','Tríceps','Hombro ant.'],tip:['Mayor recorrido que con barra: aprovecha el estiramiento.','Baja hasta los lados del pecho.','Mantén las muñecas firmes y alineadas.']},
@@ -425,6 +435,9 @@ const EXVID={
   'Plancha (core)':'mwlp75MS6Rg',
 };
 const EXIMG={
+  'Multisaltos alternados':'Box_Skip','Salto largo + pique 10 m':'Standing_Long_Jump','Salto de cabeceo':'Single_Leg_Push-off',
+  'Salto profundo + pique 5 m':'Depth_Jump_Leap','Saltos sobre vallas + pique':'Hurdle_Hops','Salto lateral a un pie con freno':'Single-Leg_Lateral_Hop',
+  'Patinador con freno':'Lateral_Bound','Salto lateral + pique':'Side_Hop-Sprint','Plantar y cortar':'Single-Cone_Sprint_Drill','Nórdico (isquios)':'Natural_Glute_Ham_Raise',
   'Saltos a la soga':'Rope_Jumping','Escalera de coordinación':'Fast_Skipping','Saltos en cuadrilátero a un pie':'Single-Leg_Hop_Progression','Prisioneros':'Freehand_Jump_Squat',
   'Saltos laterales a un pie':'Single-Leg_Lateral_Hop','Ranas':'Frog_Hops','Patinador':'Lateral_Bound','Salto profundo':'Depth_Jump_Leap','Saltos sobre vallas':'Hurdle_Hops',
   'Saltos continuos':'Knee_Tuck_Jump','Lanzamiento por sobre la cabeza (saque lateral)':'Standing_Two-Arm_Overhead_Throw',
@@ -487,6 +500,7 @@ const SUGGEST={
   'Curl femoral sentado':25,'Elevaciones laterales en polea':5,
 };
 Object.assign(SUGGEST,{
+  'Multisaltos alternados':null,'Salto largo + pique 10 m':null,'Salto de cabeceo':null,'Salto profundo + pique 5 m':null,'Saltos sobre vallas + pique':null,'Salto lateral a un pie con freno':null,'Patinador con freno':null,'Salto lateral + pique':null,'Plantar y cortar':null,'Nórdico (isquios)':null,
   'Saltos a la soga':null,'Escalera de coordinación':null,'Saltos en cuadrilátero a un pie':null,'Prisioneros':null,'Saltos laterales a un pie':null,'Ranas':null,'Patinador':null,'Salto profundo':null,'Saltos sobre vallas':null,'Saltos continuos':null,'Lanzamiento por sobre la cabeza (saque lateral)':4,
   'Twist soviético':5,'Hiperextensiones lumbares':null,'Elevaciones de tronco':null,
   'Cargada de potencia colgado':30,'Arranque de potencia colgado':20,'Arranque a un brazo con mancuerna':10,'Segundo tiempo de potencia':30,
@@ -519,6 +533,10 @@ const PAT={
   'Salto al cajón':'plyo_v','Salto largo sin impulso':'plyo_v','Saltos laterales':'plyo_v',
   'Lanzamiento de pelota medicinal al pecho':'mb','Lanzamiento de pelota medicinal hacia atrás':'mb','Saques laterales con pelota medicinal':'mb','Lagartijas con aplauso':'mb',
   'Aductores en máquina':'adductor',
+  'Multisaltos alternados':'plyo_h','Salto largo + pique 10 m':'plyo_h','Salto largo sin impulso':'plyo_h',
+  'Salto de cabeceo':'plyo_v','Salto profundo + pique 5 m':'plyo_v','Saltos sobre vallas + pique':'plyo_v',
+  'Salto lateral a un pie con freno':'plyo_lat','Patinador con freno':'plyo_lat','Salto lateral + pique':'plyo_lat','Plantar y cortar':'plyo_lat',
+  'Nórdico (isquios)':'hamstrings',
   'Saltos a la soga':'plyo_low','Escalera de coordinación':'plyo_low','Saltos en cuadrilátero a un pie':'plyo_low','Saltos continuos':'plyo_low',
   'Prisioneros':'plyo_v','Salto profundo':'plyo_v','Saltos sobre vallas':'plyo_v',
   'Saltos laterales a un pie':'plyo_lat','Ranas':'plyo_lat','Patinador':'plyo_lat',
@@ -765,7 +783,7 @@ function rotateExercises(){
 }
 function setDayRoutine(dayIdx, key){ S.routine[dayIdx]=JSON.parse(JSON.stringify(TEMPLATES[key])); save(); setView('entrenar'); }
 function wkDone(w){ if(!w) return false; if(w.done) return true; return (w.exercises||[]).some(ex=>(ex.sets||[]).some(s=>(s.r!=null&&s.r!==''))); }
-const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3'],['anselmi','Anselmi'],['plio','Pliometría']];
+const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3'],['anselmi','Anselmi'],['plio','Pliometría fútbol']];
 function applyPlan(key){ if(key!=='anselmi' && key!=='plio' && !TEMPLATES[key]) return;
   const wk= key==='plio' ? {1:'pl_up',2:'soccer',3:'pl_a',4:'pl_c',5:'pl_b',6:'pl_up',0:'soccer'} : key==='anselmi' ? {1:'an_up',2:'soccer',3:'an_a',4:'an_b',5:'an_c',6:'an_up',0:'soccer'} : {1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
   Object.keys(wk).forEach(d=>{ S.routine[d]=JSON.parse(JSON.stringify(TEMPLATES[wk[d]])); });
@@ -1241,17 +1259,17 @@ function viewGuia(){
       </ul>
     </div>
 
-    <div class="card"><h3>🦘 Pliometría</h3>
-      <p style="margin:0 0 10px">Basada en los <b>niveles de pliometría de Anselmi</b> (<i>Cantidad de calidad</i>): tres días bien diferenciados, uno coordinativo, uno de lateralidad y uno de intensidad.</p>
+    <div class="card"><h3>⚽ Pliometría para fútbol</h3>
+      <p style="margin:0 0 10px">Combina los <b>niveles de pliometría de Anselmi</b> (coordinación, lateralidad e intensidad) con lo que muestra la evidencia en futbolistas.</p>
       <ul class="tips">
-        <li><b>Día A · Coordinación</b> (nivel 1): soga, escalera y cuadrilátero a un pie, más "prisioneros" para saltar desde distintos ángulos. Buscá pureza, coordinación y contacto mínimo.</li>
-        <li><b>Día B · Lateralidad</b> (nivel 2): saltos laterales, ranas y patinador para frenar y cambiar de dirección.</li>
-        <li><b>Día C · Intensidad</b>: saltos profundos desde 30-40 cm y vallas. Anselmi no recomienda este nivel si no entrenás fuerza al menos 2 veces por semana: por eso cada día trae también un ejercicio de fuerza.</li>
-        <li><b>Contá contactos con el piso</b>: a más intensidad, menos saltos. En temporada alcanza con volúmenes bajos: un estudio en futbolistas mejoró el salto con unos 60 contactos por sesión.</li>
-        <li><b>Pausas</b>: entre series 2-3 min en saltos de baja intensidad, 3-5 min en los de alta y 5-8 min en los máximos. Cortá la serie cuando el salto pierde altura o el contacto se alarga.</li>
-        <li><b>Frecuencia</b>: máximo 2 días de saltos de piernas por semana, con 48-72 h entre medio. Por ejemplo miércoles (A) y viernes (B), o el jueves (C) solo.</li>
-        <li><b>Lunes y sábado</b> (antes de los partidos): pliometría de tren superior, sin saltos.</li>
-        <li>Superficie que amortigüe (pasto, piso de goma), buenas zapatillas, y siempre después de entrar en calor.</li>
+        <li><b>Saltos + piques</b>: combinar pliometría con sprints y cambios de dirección es lo que más mejora el pique corto y el cambio de dirección. Por eso varios saltos terminan en un pique de 5-10 m.</li>
+        <li><b>Vertical y horizontal</b>: rinden parecido en futbolistas, así que se mezclan (multisaltos y salto largo para acelerar; vallas, cajón y cabeceo para el juego aéreo).</li>
+        <li><b>Frenar bien</b>: la caída clavada a un pie y el plantar y cortar vienen del programa FIFA 11+, que reduce lesiones cuando se hace en forma regular.</li>
+        <li><b>Nórdico</b>: en fútbol, sumarlo a la prevención reduce a la mitad las lesiones de isquiotibiales. Con 1-2 veces por semana alcanza.</li>
+        <li><b>Aductores</b>: prevención de pubalgia, como indica Anselmi en todos sus planes de fútbol.</li>
+        <li><b>Volumen bajo en temporada</b>: 60-100 saltos por sesión. Cortá cuando el salto pierde altura o el contacto se alarga; 3-5 min de pausa en los más intensos.</li>
+        <li><b>Frecuencia</b>: máximo 2 días de saltos de piernas por semana, con 48-72 h entre medio (ej. miércoles A y viernes B, o jueves C solo). Lunes y sábado, solo tren superior.</li>
+        <li>En pasto o piso de goma, con botines o zapatillas que agarren, y después de entrar en calor.</li>
       </ul>
     </div>
 
