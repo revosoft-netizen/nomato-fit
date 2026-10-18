@@ -238,7 +238,7 @@ const TEMPLATES = {
       {n:'Press banca con barra', s:4, r:'4-6'},
       {n:'Lagartijas con aplauso', s:3, r:'5-8'},
       {n:'Dominadas / Jalón al pecho', s:4, r:'5-8'},
-      {n:'Lanzamiento de pelota medicinal al pecho', s:3, r:'5-6'},
+      {n:'Remo explosivo con mancuerna', s:3, r:'5-6'},
       {n:'Remo en polea baja', s:3, r:'6-8'},
       {n:'Press militar', s:3, r:'5-6'}]},
   an_a: {type:'gym', name:'Anselmi · Día A', ex:[
@@ -248,7 +248,7 @@ const TEMPLATES = {
       {n:'Sentadilla adelante', s:4, r:'4-6'},
       {n:'Salto al cajón', s:3, r:'5-6'},
       {n:'Press banca con barra', s:4, r:'4-6'},
-      {n:'Lanzamiento de pelota medicinal al pecho', s:3, r:'5-6'},
+      {n:'Lagartijas con caída', s:3, r:'5-6'},
       {n:'Aductores en máquina', s:3, r:'12-15'}]},
   an_b: {type:'gym', name:'Anselmi · Día B', ex:[
       {n:'Elevaciones de tronco', s:3, r:'12-15'},
@@ -257,7 +257,7 @@ const TEMPLATES = {
       {n:'Peso muerto rumano', s:4, r:'5-6'},
       {n:'Salto largo sin impulso', s:3, r:'5-6'},
       {n:'Dominadas / Jalón al pecho', s:4, r:'5-8'},
-      {n:'Lanzamiento de pelota medicinal hacia atrás', s:3, r:'5-6'},
+      {n:'Swing con mancuerna', s:3, r:'6-8'},
       {n:'Aductores en máquina', s:3, r:'12-15'}]},
   an_c: {type:'gym', name:'Anselmi · Día C', ex:[
       {n:'Twist soviético', s:3, r:'8-10'},
@@ -267,7 +267,7 @@ const TEMPLATES = {
       {n:'Saltos laterales', s:3, r:'5-6'},
       {n:'Segundo tiempo de potencia', s:4, r:'3-5'},
       {n:'Remo con barra', s:4, r:'5-6'},
-      {n:'Saques laterales con pelota medicinal', s:3, r:'5-6'},
+      {n:'Barra de punta a un lado y al otro', s:3, r:'5-6'},
       {n:'Aductores en máquina', s:3, r:'12-15'}]},
   pl_up: {type:'gym', name:'Pliometría fútbol · Tren superior', ex:[
       {n:'Elevaciones de tronco', s:3, r:'12-15'},
@@ -275,8 +275,8 @@ const TEMPLATES = {
       {n:'Press banca con barra', s:3, r:'4-6'},
       {n:'Lagartijas con aplauso', s:3, r:'5-8'},
       {n:'Dominadas / Jalón al pecho', s:3, r:'5-8'},
-      {n:'Lanzamiento por sobre la cabeza (saque lateral)', s:3, r:'5-6'},
-      {n:'Saques laterales con pelota medicinal', s:3, r:'5-6'},
+      {n:'Remo explosivo con mancuerna', s:3, r:'5-6'},
+      {n:'Barra de punta a un lado y al otro', s:3, r:'5-6'},
       {n:'Nórdico (isquios)', s:2, r:'4-6'}]},
   pl_a: {type:'gym', name:'Pliometría fútbol · Día A · Aceleración y cabezazo', ex:[
       {n:'Twist soviético', s:3, r:'8-10'},
@@ -307,6 +307,14 @@ const TEMPLATES = {
   soccer: {type:'soccer', name:'Fútbol', ex:[]},
   rest: {type:'rest', name:'Descanso / Movilidad', ex:[]},
 };
+TEMPLATES.nf_a=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_a)),{name:'Sin fútbol · Día A (Anselmi)'});
+TEMPLATES.nf_b=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_b)),{name:'Sin fútbol · Día B (Anselmi)'});
+TEMPLATES.nf_c=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_c)),{name:'Sin fútbol · Día C (Anselmi)'});
+TEMPLATES.nf_int={type:'gym', name:'Sin fútbol · Intermitente 15×15 (reemplaza el partido)', ex:[
+  {n:'Saltos a la soga', s:2, r:'20-30'},
+  {n:'Intermitente 15×15', s:1, r:'16-24'},
+  {n:'Plantar y cortar', s:2, r:'4'},
+  {n:'Nórdico (isquios)', s:2, r:'4-6'}]};
 const TPL_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3'],['nolegs','Sin piernas'],['soccer','Fútbol'],['rest','Descanso']];
 const DEFAULT_ROUTINE = {
   1: JSON.parse(JSON.stringify(TEMPLATES.nolegs)),
@@ -388,6 +396,11 @@ const EXDB={
   'Salto lateral + pique':{m:['Glúteo medio','Cuádriceps'],tip:['2-3 saltos laterales sobre una línea y, a la señal, pique de 5-10 metros hacia adelante.','Reaccionar a una señal (aplauso, compañero) lo hace más parecido al partido.','Pausa completa entre repeticiones.']},
   'Plantar y cortar':{m:['Cuádriceps','Glúteo','Aductores'],tip:['Trotá 5 m, plantá el pie de afuera y cambiá de dirección a 45° o 90°.','Bajá la cadera al plantar, rodilla sobre el pie y tronco hacia la nueva dirección.','Del programa FIFA 11+. Reps por lado, a velocidad creciente.']},
   'Nórdico (isquios)':{m:['Isquios'],tip:['De rodillas, alguien te sostiene los tobillos.','Bajá el cuerpo recto hacia adelante lo más lento que puedas, frenando con los isquios; ayudate con las manos al llegar abajo.','En fútbol, sumarlo a la prevención reduce a la mitad las lesiones de isquiotibiales.']},
+  'Lagartijas con caída':{m:['Pecho','Tríceps'],tip:['Sin pelota: reemplaza al lanzamiento al pecho como transferencia del press de banca.','De rodillas o de pie frente a un banco, dejate caer sobre las manos y empujá explosivo de vuelta.','Contacto lo más corto posible. Anselmi las usa como "lagartijas desde caída vertical".']},
+  'Swing con mancuerna':{m:['Glúteo','Isquios','Lumbares'],tip:['Sin pelota: reemplaza al lanzamiento hacia atrás (extensión explosiva de cadera).','Mancuerna o pesa rusa entre las piernas, bisagra de cadera y extensión violenta hasta la altura del pecho.','La fuerza sale de la cadera, no de los brazos. Espalda recta siempre.']},
+  'Barra de punta a un lado y al otro':{m:['Oblicuos','Core','Cadera'],tip:['Sin pelota: reemplaza a los saques laterales. Es el ejercicio diagonal que propone Anselmi.','Una punta de la barra en un rincón (o landmine); tomá la otra con las dos manos y llevala de un lado al otro con ritmo y velocidad.','El giro arranca en los pies y la cadera. Reps por lado.']},
+  'Remo explosivo con mancuerna':{m:['Dorsales','Bíceps'],tip:['Sin pelota: reemplaza al lanzamiento por sobre la cabeza como transferencia de las dominadas.','Peso liviano-moderado: subí la mancuerna lo más rápido posible y bajala controlado.','Cortá la serie cuando la velocidad baje. Reps por brazo.']},
+  'Intermitente 15×15':{m:['Resistencia','Piernas'],tip:['Método de Anselmi para la resistencia ("retardo a la fatiga"): 15 segundos corriendo fuerte y 15 segundos de pausa, sin cortar.','Cada pasada debe ser de igual calidad (unos 55-65 m en 15 s según tu nivel). Si no llegás a la marca, frená la sesión.','Anotá cuántas pasadas hiciste (reps). Evitá las pausas largas: según Anselmi te sacan del sistema.']},
   'Plancha (core)':{key:'plank',m:['Core','Abdomen'],tip:['Cuerpo en línea recta de cabeza a talones.','Aprieta abdomen y glúteos; no hundas la cadera.','Respira normal y aguanta el tiempo objetivo.']},
   'Hip thrust':{key:'hipthrust',m:['Glúteo','Femoral'],tip:['Omóplatos apoyados en el banco.','Empuja con los talones y bloquea apretando glúteos.','Mantén el mentón metido, mirada al frente.']},
   'Press banca mancuerna':{key:'benchDB',m:['Pecho','Tríceps','Hombro ant.'],tip:['Mayor recorrido que con barra: aprovecha el estiramiento.','Baja hasta los lados del pecho.','Mantén las muñecas firmes y alineadas.']},
@@ -435,6 +448,8 @@ const EXVID={
   'Plancha (core)':'mwlp75MS6Rg',
 };
 const EXIMG={
+  'Lagartijas con caída':'Drop_Push','Swing con mancuerna':'One-Arm_Kettlebell_Swings','Barra de punta a un lado y al otro':'Landmine_180s',
+  'Remo explosivo con mancuerna':'One-Arm_Dumbbell_Row','Intermitente 15×15':'Wind_Sprints',
   'Multisaltos alternados':'Box_Skip','Salto largo + pique 10 m':'Standing_Long_Jump','Salto de cabeceo':'Single_Leg_Push-off',
   'Salto profundo + pique 5 m':'Depth_Jump_Leap','Saltos sobre vallas + pique':'Hurdle_Hops','Salto lateral a un pie con freno':'Single-Leg_Lateral_Hop',
   'Patinador con freno':'Lateral_Bound','Salto lateral + pique':'Side_Hop-Sprint','Plantar y cortar':'Single-Cone_Sprint_Drill','Nórdico (isquios)':'Natural_Glute_Ham_Raise',
@@ -500,6 +515,7 @@ const SUGGEST={
   'Curl femoral sentado':25,'Elevaciones laterales en polea':5,
 };
 Object.assign(SUGGEST,{
+  'Lagartijas con caída':null,'Swing con mancuerna':16,'Barra de punta a un lado y al otro':10,'Remo explosivo con mancuerna':12,'Intermitente 15×15':null,
   'Multisaltos alternados':null,'Salto largo + pique 10 m':null,'Salto de cabeceo':null,'Salto profundo + pique 5 m':null,'Saltos sobre vallas + pique':null,'Salto lateral a un pie con freno':null,'Patinador con freno':null,'Salto lateral + pique':null,'Plantar y cortar':null,'Nórdico (isquios)':null,
   'Saltos a la soga':null,'Escalera de coordinación':null,'Saltos en cuadrilátero a un pie':null,'Prisioneros':null,'Saltos laterales a un pie':null,'Ranas':null,'Patinador':null,'Salto profundo':null,'Saltos sobre vallas':null,'Saltos continuos':null,'Lanzamiento por sobre la cabeza (saque lateral)':4,
   'Twist soviético':5,'Hiperextensiones lumbares':null,'Elevaciones de tronco':null,
@@ -533,6 +549,8 @@ const PAT={
   'Salto al cajón':'plyo_v','Salto largo sin impulso':'plyo_v','Saltos laterales':'plyo_v',
   'Lanzamiento de pelota medicinal al pecho':'mb','Lanzamiento de pelota medicinal hacia atrás':'mb','Saques laterales con pelota medicinal':'mb','Lagartijas con aplauso':'mb',
   'Aductores en máquina':'adductor',
+  'Lagartijas con caída':'mb','Swing con mancuerna':'mb','Barra de punta a un lado y al otro':'mb','Remo explosivo con mancuerna':'mb',
+  'Intermitente 15×15':'cond',
   'Multisaltos alternados':'plyo_h','Salto largo + pique 10 m':'plyo_h','Salto largo sin impulso':'plyo_h',
   'Salto de cabeceo':'plyo_v','Salto profundo + pique 5 m':'plyo_v','Saltos sobre vallas + pique':'plyo_v',
   'Salto lateral a un pie con freno':'plyo_lat','Patinador con freno':'plyo_lat','Salto lateral + pique':'plyo_lat','Plantar y cortar':'plyo_lat',
@@ -767,7 +785,7 @@ function viewEntrenar(){
   `;
 }
 function icon(n,s){s=s||22;const I={dumbbell:'<line x1="6" y1="12" x2="18" y2="12"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="3" y1="10" x2="3" y2="14"/><line x1="18" y1="8" x2="18" y2="16"/><line x1="21" y1="10" x2="21" y2="14"/>',chart:'<polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/>',book:'<path d="M3 4.5h6a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H3z"/><path d="M21 4.5h-6a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H21z"/>',settings:'<line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="9" cy="8" r="2.2"/><circle cx="15" cy="16" r="2.2"/>',ball:'<circle cx="12" cy="12" r="9"/><path d="M12 7.5l3.7 2.7-1.4 4.5H9.7L8.3 10.2z"/><path d="M12 3.2v4.3M4.2 9.6l4 1.1M19.8 9.6l-4 1.1M7.2 18.8l2.4-3.6M16.8 18.8l-2.4-3.6"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>'};return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block">'+(I[n]||'')+'</svg>';}
-function tplKeyFor(r){ if(!r) return 'rest'; if(r.name && String(r.name).indexOf('Anselmi')===0) return 'anselmi'; if(r.name && String(r.name).indexOf('Pliometría')===0) return 'plio'; if(r.type==='rest')return 'rest'; if(r.type==='soccer')return 'soccer'; if(r.name===TEMPLATES.r2.name)return 'r2'; if(r.name===TEMPLATES.r3.name)return 'r3'; if(r.name===TEMPLATES.nolegs.name)return 'nolegs'; return 'r1'; }
+function tplKeyFor(r){ if(!r) return 'rest'; if(r.name && String(r.name).indexOf('Sin fútbol')===0) return 'nofut'; if(r.name && String(r.name).indexOf('Anselmi')===0) return 'anselmi'; if(r.name && String(r.name).indexOf('Pliometría')===0) return 'plio'; if(r.type==='rest')return 'rest'; if(r.type==='soccer')return 'soccer'; if(r.name===TEMPLATES.r2.name)return 'r2'; if(r.name===TEMPLATES.r3.name)return 'r3'; if(r.name===TEMPLATES.nolegs.name)return 'nolegs'; return 'r1'; }
 function rotateExercises(){
   [1,2,3,4,5,6,0].forEach(d=>{ const day=S.routine[d]; if(!day||day.type!=='gym') return;
     const used=new Set(day.ex.map(e=>e.n));
@@ -783,9 +801,9 @@ function rotateExercises(){
 }
 function setDayRoutine(dayIdx, key){ S.routine[dayIdx]=JSON.parse(JSON.stringify(TEMPLATES[key])); save(); setView('entrenar'); }
 function wkDone(w){ if(!w) return false; if(w.done) return true; return (w.exercises||[]).some(ex=>(ex.sets||[]).some(s=>(s.r!=null&&s.r!==''))); }
-const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3'],['anselmi','Anselmi'],['plio','Pliometría fútbol']];
-function applyPlan(key){ if(key!=='anselmi' && key!=='plio' && !TEMPLATES[key]) return;
-  const wk= key==='plio' ? {1:'pl_up',2:'soccer',3:'pl_a',4:'pl_c',5:'pl_b',6:'pl_up',0:'soccer'} : key==='anselmi' ? {1:'an_up',2:'soccer',3:'an_a',4:'an_b',5:'an_c',6:'an_up',0:'soccer'} : {1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
+const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3'],['anselmi','Anselmi'],['plio','Pliometría fútbol'],['nofut','Semana sin fútbol (puntual)']];
+function applyPlan(key){ if(key!=='anselmi' && key!=='plio' && key!=='nofut' && !TEMPLATES[key]) return;
+  const wk= key==='nofut' ? {1:'nf_a',2:'nf_int',3:'nf_b',4:'rest',5:'nf_c',6:'nf_int',0:'rest'} : key==='plio' ? {1:'pl_up',2:'soccer',3:'pl_a',4:'pl_c',5:'pl_b',6:'pl_up',0:'soccer'} : key==='anselmi' ? {1:'an_up',2:'soccer',3:'an_a',4:'an_b',5:'an_c',6:'an_up',0:'soccer'} : {1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
   Object.keys(wk).forEach(d=>{ S.routine[d]=JSON.parse(JSON.stringify(TEMPLATES[wk[d]])); });
   save(); flash('Rutina de la semana aplicada 🔄'); setView('entrenar');
 }
@@ -1254,6 +1272,7 @@ function viewGuia(){
         <li>Evitá las series largas al fallo: según Anselmi empeoran la sincronización y el tiempo de reacción.</li>
         <li><b>Ejercicios diagonales y unipodales</b> (saques laterales, subidas al banco, arranque a un brazo) para simetría y balance.</li>
         <li><b>Aductores siempre</b> para prevenir la pubalgia en futbolistas.</li>
+        <li><b>Semanas sin partido</b>: elegí "Semana sin fútbol (puntual)". Los días de partido se reemplazan por su intermitente 15"×15" y no hay días sin piernas. A la semana siguiente volvé a elegir tu rutina.</li>
         <li>En temporada (jugás martes y domingo) su plan es de <b>mantenimiento</b>: menos días y menos intensidad que en pretemporada. Elegí 2-3 días entre lunes y sábado. Lunes y sábado son sin piernas, por los partidos.</li>
         <li><b>Progresión</b>: mismas reps con más peso. Si te estancás, sumá un par de series con el mismo peso y la semana siguiente intentá subir.</li>
       </ul>
@@ -1270,6 +1289,7 @@ function viewGuia(){
         <li><b>Volumen bajo en temporada</b>: 60-100 saltos por sesión. Cortá cuando el salto pierde altura o el contacto se alarga; 3-5 min de pausa en los más intensos.</li>
         <li><b>Frecuencia</b>: máximo 2 días de saltos de piernas por semana, con 48-72 h entre medio (ej. miércoles A y viernes B, o jueves C solo). Lunes y sábado, solo tren superior.</li>
         <li>En pasto o piso de goma, con botines o zapatillas que agarren, y después de entrar en calor.</li>
+        <li><b>Sin pelota medicinal</b>: la app ya trae el plan B (lagartijas con caída, swing con mancuerna, barra de punta, remo explosivo). Si conseguís una pelota, la cambiás con ⇄.</li>
       </ul>
     </div>
 
