@@ -310,6 +310,9 @@ const TEMPLATES = {
 TEMPLATES.nf_a=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_a)),{name:'Sin fútbol · Día A (Anselmi)'});
 TEMPLATES.nf_b=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_b)),{name:'Sin fútbol · Día B (Anselmi)'});
 TEMPLATES.nf_c=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_c)),{name:'Sin fútbol · Día C (Anselmi)'});
+TEMPLATES.fb1=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.r1)),{name:'Full body · Rutina 1'});
+TEMPLATES.fb2=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.r2)),{name:'Full body · Rutina 2'});
+TEMPLATES.fb3=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.r3)),{name:'Full body · Rutina 3'});
 TEMPLATES.nf_up=Object.assign(JSON.parse(JSON.stringify(TEMPLATES.an_up)),{name:'Sin fútbol · Sin piernas (víspera del partido)'});
 TEMPLATES.nf_int={type:'gym', name:'Sin fútbol · Intermitente 15×15 (reemplaza el partido del martes)', ex:[
   {n:'Saltos a la soga', s:2, r:'20-30'},
@@ -786,7 +789,7 @@ function viewEntrenar(){
   `;
 }
 function icon(n,s){s=s||22;const I={dumbbell:'<line x1="6" y1="12" x2="18" y2="12"/><line x1="6" y1="8" x2="6" y2="16"/><line x1="3" y1="10" x2="3" y2="14"/><line x1="18" y1="8" x2="18" y2="16"/><line x1="21" y1="10" x2="21" y2="14"/>',chart:'<polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/>',book:'<path d="M3 4.5h6a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.5H3z"/><path d="M21 4.5h-6a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.5H21z"/>',settings:'<line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="9" cy="8" r="2.2"/><circle cx="15" cy="16" r="2.2"/>',ball:'<circle cx="12" cy="12" r="9"/><path d="M12 7.5l3.7 2.7-1.4 4.5H9.7L8.3 10.2z"/><path d="M12 3.2v4.3M4.2 9.6l4 1.1M19.8 9.6l-4 1.1M7.2 18.8l2.4-3.6M16.8 18.8l-2.4-3.6"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>'};return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block">'+(I[n]||'')+'</svg>';}
-function tplKeyFor(r){ if(!r) return 'rest'; if(r.name && String(r.name).indexOf('Sin fútbol')===0) return 'nofut'; if(r.name && String(r.name).indexOf('Anselmi')===0) return 'anselmi'; if(r.name && String(r.name).indexOf('Pliometría')===0) return 'plio'; if(r.type==='rest')return 'rest'; if(r.type==='soccer')return 'soccer'; if(r.name===TEMPLATES.r2.name)return 'r2'; if(r.name===TEMPLATES.r3.name)return 'r3'; if(r.name===TEMPLATES.nolegs.name)return 'nolegs'; return 'r1'; }
+function tplKeyFor(r){ if(!r) return 'rest'; if(r.name && String(r.name).indexOf('Full body ·')===0) return 'fb'; if(r.name && String(r.name).indexOf('Sin fútbol')===0) return 'nofut'; if(r.name && String(r.name).indexOf('Anselmi')===0) return 'anselmi'; if(r.name && String(r.name).indexOf('Pliometría')===0) return 'plio'; if(r.type==='rest')return 'rest'; if(r.type==='soccer')return 'soccer'; if(r.name===TEMPLATES.r2.name)return 'r2'; if(r.name===TEMPLATES.r3.name)return 'r3'; if(r.name===TEMPLATES.nolegs.name)return 'nolegs'; return 'r1'; }
 function rotateExercises(){
   [1,2,3,4,5,6,0].forEach(d=>{ const day=S.routine[d]; if(!day||day.type!=='gym') return;
     const used=new Set(day.ex.map(e=>e.n));
@@ -802,9 +805,9 @@ function rotateExercises(){
 }
 function setDayRoutine(dayIdx, key){ S.routine[dayIdx]=JSON.parse(JSON.stringify(TEMPLATES[key])); save(); setView('entrenar'); }
 function wkDone(w){ if(!w) return false; if(w.done) return true; return (w.exercises||[]).some(ex=>(ex.sets||[]).some(s=>(s.r!=null&&s.r!==''))); }
-const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3'],['anselmi','Anselmi'],['plio','Pliometría fútbol'],['nofut','Semana sin partido del martes (puntual)']];
-function applyPlan(key){ if(key!=='anselmi' && key!=='plio' && key!=='nofut' && !TEMPLATES[key]) return;
-  const wk= key==='nofut' ? {1:'nf_a',2:'nf_int',3:'nf_b',4:'rest',5:'nf_c',6:'nf_up',0:'soccer'} : key==='plio' ? {1:'pl_up',2:'soccer',3:'pl_a',4:'pl_c',5:'pl_b',6:'pl_up',0:'soccer'} : key==='anselmi' ? {1:'an_up',2:'soccer',3:'an_a',4:'an_b',5:'an_c',6:'an_up',0:'soccer'} : {1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
+const WEEK_OPTS=[['r1','Rutina 1'],['r2','Rutina 2'],['r3','Rutina 3'],['anselmi','Anselmi'],['plio','Pliometría fútbol'],['nofut','Semana sin partido del martes (puntual)'],['fb','Full body sin fútbol (Rutinas 1-2-3)']];
+function applyPlan(key){ if(key!=='fb' && key!=='anselmi' && key!=='plio' && key!=='nofut' && !TEMPLATES[key]) return;
+  const wk= key==='fb' ? {1:'fb1',2:'rest',3:'fb2',4:'rest',5:'fb3',6:'rest',0:'rest'} : key==='nofut' ? {1:'nf_a',2:'nf_int',3:'nf_b',4:'rest',5:'nf_c',6:'nf_up',0:'soccer'} : key==='plio' ? {1:'pl_up',2:'soccer',3:'pl_a',4:'pl_c',5:'pl_b',6:'pl_up',0:'soccer'} : key==='anselmi' ? {1:'an_up',2:'soccer',3:'an_a',4:'an_b',5:'an_c',6:'an_up',0:'soccer'} : {1:'nolegs',2:'soccer',3:key,4:key,5:key,6:'nolegs',0:'soccer'};
   Object.keys(wk).forEach(d=>{ S.routine[d]=JSON.parse(JSON.stringify(TEMPLATES[wk[d]])); });
   save(); flash('Rutina de la semana aplicada 🔄'); setView('entrenar');
 }
